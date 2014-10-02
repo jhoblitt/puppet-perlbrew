@@ -5,9 +5,14 @@ describe 'perlbrew', :type => :define do
 
   context 'default params' do
     it { should contain_exec('foo_install_perlbrew').with(
-        :cwd   => '/usr/local/perlbrew',
-        :user  => nil,
-        :group => nil,
+        :command     => 'wget --no-check-certificate -O - http://install.perlbrew.pl | bash',
+        :path        => ['/bin', '/usr/bin'],
+        :environment => ['HOME=/usr/local/perlbrew'],
+        :cwd         => '/usr/local/perlbrew',
+        :user        => nil,
+        :group       => nil,
+        :logoutput   => true,
+        :creates     => '/usr/local/perlbrew/perl5/perlbrew/bin/perlbrew',
       )
     }
     it { should_not contain_file('foo_perlbrew_bashrc') }
@@ -19,9 +24,14 @@ describe 'perlbrew', :type => :define do
       let(:params) {{ :install_root => '/home/baz' }}
 
       it { should contain_exec('foo_install_perlbrew').with(
-          :cwd   => '/home/baz',
-          :user  => nil,
-          :group => nil,
+          :command     => 'wget --no-check-certificate -O - http://install.perlbrew.pl | bash',
+          :path        => ['/bin', '/usr/bin'],
+          :environment => ['HOME=/home/baz'],
+          :cwd         => '/home/baz',
+          :user        => nil,
+          :group       => nil,
+          :logoutput   => true,
+          :creates     => '/home/baz/perl5/perlbrew/bin/perlbrew',
         )
       }
       it { should_not contain_file('foo_perlbrew_bashrc') }

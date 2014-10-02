@@ -14,12 +14,14 @@ define perlbrew (
   include ::wget
 
   exec { "${name}_install_perlbrew":
-    command => 'wget --no-check-certificate -O - http://install.perlbrew.pl | bash',
-    path    => ['/bin', '/usr/bin'],
-    cwd     => $install_root,
-    user    => $owner,
-    group   => $group,
-    creates => "${install_root}/perl5/perlbrew/bin/perlbrew",
+    command     => 'wget --no-check-certificate -O - http://install.perlbrew.pl | bash',
+    path        => ['/bin', '/usr/bin'],
+    environment => ["HOME=${install_root}"],
+    cwd         => $install_root,
+    user        => $owner,
+    group       => $group,
+    logoutput   => true,
+    creates     => "${install_root}/perl5/perlbrew/bin/perlbrew",
   }
 
   if $bashrc {
