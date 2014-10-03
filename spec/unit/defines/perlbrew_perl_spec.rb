@@ -8,7 +8,6 @@ describe 'perlbrew::perl', :type => :define do
   context 'default params' do
     it { should contain_exec('foo_install_perl-5.18.2').with(
         :command     => 'perlbrew install perl-5.18.2',
-        :path        => ['/bin', '/usr/bin', '/dne/perl5/perlbrew/bin'],
         :cwd         => '/dne',
         :user        => nil,
         :group       => nil,
@@ -18,7 +17,6 @@ describe 'perlbrew::perl', :type => :define do
     }
     it { should contain_exec('foo_switch_perl-5.18.2').with(
         :command     => 'perlbrew switch perl-5.18.2',
-        :path        => ['/bin', '/usr/bin', '/dne/perl5/perlbrew/bin'],
         :cwd         => '/dne',
         :user        => nil,
         :group       => nil,
