@@ -1,7 +1,7 @@
 # == Define: perlbrew
 #
 define perlbrew (
-  $install_root  = '/usr/local/perlbrew',
+  $install_root  = $name,
   $owner         = undef,
   $group         = undef,
   $bashrc        = false,

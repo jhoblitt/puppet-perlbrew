@@ -1,29 +1,29 @@
 require 'spec_helper'
 
 describe 'perlbrew', :type => :define do
-  let(:title) { 'foo' }
+  let(:title) { '/dne' }
 
   context 'default params' do
-    it { should contain_exec('foo_install_perlbrew').with(
+    it { should contain_exec('/dne_install_perlbrew').with(
         :command     => 'wget --no-check-certificate -O - http://install.perlbrew.pl | bash',
         :path        => ['/bin', '/usr/bin'],
-        :environment => ['HOME=/usr/local/perlbrew'],
-        :cwd         => '/usr/local/perlbrew',
+        :environment => ['HOME=/dne'],
+        :cwd         => '/dne',
         :user        => nil,
         :group       => nil,
         :logoutput   => true,
-        :creates     => '/usr/local/perlbrew/perl5/perlbrew/bin/perlbrew',
+        :creates     => '/dne/perl5/perlbrew/bin/perlbrew',
       )
     }
-    it { should_not contain_file('foo_perlbrew_bashrc') }
-    it { should_not contain_file_line('foo_perlbrew_bashrc') }
+    it { should_not contain_file('/dne_perlbrew_bashrc') }
+    it { should_not contain_file_line('/dne_perlbrew_bashrc') }
   end
 
   context 'install_root => ' do
     context '/home/baz' do
       let(:params) {{ :install_root => '/home/baz' }}
 
-      it { should contain_exec('foo_install_perlbrew').with(
+      it { should contain_exec('/dne_install_perlbrew').with(
           :command     => 'wget --no-check-certificate -O - http://install.perlbrew.pl | bash',
           :path        => ['/bin', '/usr/bin'],
           :environment => ['HOME=/home/baz'],
@@ -34,8 +34,8 @@ describe 'perlbrew', :type => :define do
           :creates     => '/home/baz/perl5/perlbrew/bin/perlbrew',
         )
       }
-      it { should_not contain_file('foo_perlbrew_bashrc') }
-      it { should_not contain_file_line('foo_perlbrew_bashrc') }
+      it { should_not contain_file('/dne_perlbrew_bashrc') }
+      it { should_not contain_file_line('/dne_perlbrew_bashrc') }
     end
 
     context 'home/baz' do
@@ -50,14 +50,14 @@ describe 'perlbrew', :type => :define do
     context 'baz' do
       let(:params) {{ :owner => 'baz' }}
 
-      it { should contain_exec('foo_install_perlbrew').with(
-          :cwd   => '/usr/local/perlbrew',
+      it { should contain_exec('/dne_install_perlbrew').with(
+          :cwd   => '/dne',
           :user  => 'baz',
           :group => nil,
         )
       }
-      it { should_not contain_file('foo_perlbrew_bashrc') }
-      it { should_not contain_file_line('foo_perlbrew_bashrc') }
+      it { should_not contain_file('/dne_perlbrew_bashrc') }
+      it { should_not contain_file_line('/dne_perlbrew_bashrc') }
     end
 
     context '[]' do
@@ -72,14 +72,14 @@ describe 'perlbrew', :type => :define do
     context 'baz' do
       let(:params) {{ :group => 'baz' }}
 
-      it { should contain_exec('foo_install_perlbrew').with(
-          :cwd   => '/usr/local/perlbrew',
+      it { should contain_exec('/dne_install_perlbrew').with(
+          :cwd   => '/dne',
           :user  => nil,
           :group => 'baz',
         )
       }
-      it { should_not contain_file('foo_perlbrew_bashrc') }
-      it { should_not contain_file_line('foo_perlbrew_bashrc') }
+      it { should_not contain_file('/dne_perlbrew_bashrc') }
+      it { should_not contain_file_line('/dne_perlbrew_bashrc') }
     end
 
     context '[]' do
@@ -94,36 +94,36 @@ describe 'perlbrew', :type => :define do
     context 'true' do
       let(:params) {{ :bashrc => true }}
 
-      it { should contain_exec('foo_install_perlbrew').with(
-          :cwd   => '/usr/local/perlbrew',
+      it { should contain_exec('/dne_install_perlbrew').with(
+          :cwd   => '/dne',
           :user  => nil,
           :group => nil,
         )
       }
-      it { should contain_file('foo_perlbrew_bashrc').with(
+      it { should contain_file('/dne_perlbrew_bashrc').with(
           :ensure => 'file',
-          :path   => '/usr/local/perlbrew/.bashrc',
+          :path   => '/dne/.bashrc',
           :owner  => nil,
           :group  => nil,
           :mode   => '0644'
         )
       }
-      it { should contain_file_line('foo_perlbrew_bashrc').with(
-          :path => '/usr/local/perlbrew/.bashrc',
+      it { should contain_file_line('/dne_perlbrew_bashrc').with(
+          :path => '/dne/.bashrc',
         )
       }
     end
 
     context 'false' do
       let(:params) {{ :bashrc => false }}
-      it { should contain_exec('foo_install_perlbrew').with(
-          :cwd   => '/usr/local/perlbrew',
+      it { should contain_exec('/dne_install_perlbrew').with(
+          :cwd   => '/dne',
           :user  => nil,
           :group => nil,
         )
       }
-      it { should_not contain_file('foo_perlbrew_bashrc') }
-      it { should_not contain_file_line('foo_perlbrew_bashrc') }
+      it { should_not contain_file('/dne_perlbrew_bashrc') }
+      it { should_not contain_file_line('/dne_perlbrew_bashrc') }
     end
 
     context '[]' do
