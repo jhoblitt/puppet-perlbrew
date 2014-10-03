@@ -12,7 +12,7 @@ describe 'perlbrew::perl', :type => :define do
         :user        => nil,
         :group       => nil,
         :logoutput   => true,
-        :creates     => '/dne/perl5/perlbrew/perls/perl-5.18.2',
+        :creates     => '/dne/perl5/perlbrew/perls/perl-5.18.2'
       )
     }
     it { should contain_exec('foo_switch_perl-5.18.2').with(
@@ -21,7 +21,7 @@ describe 'perlbrew::perl', :type => :define do
         :user        => nil,
         :group       => nil,
         :logoutput   => true,
-        :unless      => "grep PERLBREW_PERL=\\\"perl-5.18.2\\\" /dne/.perlbrew/init",
+        :unless      => "grep PERLBREW_PERL=\\\"perl-5.18.2\\\" /dne/.perlbrew/init"
       )
     }
   end

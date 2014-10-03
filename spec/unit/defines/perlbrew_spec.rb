@@ -12,7 +12,7 @@ describe 'perlbrew', :type => :define do
         :user        => nil,
         :group       => nil,
         :logoutput   => true,
-        :creates     => '/dne/perl5/perlbrew/bin/perlbrew',
+        :creates     => '/dne/perl5/perlbrew/bin/perlbrew'
       )
     }
     it { should_not contain_file('/dne_perlbrew_bashrc') }
@@ -31,7 +31,7 @@ describe 'perlbrew', :type => :define do
           :user        => nil,
           :group       => nil,
           :logoutput   => true,
-          :creates     => '/home/baz/perl5/perlbrew/bin/perlbrew',
+          :creates     => '/home/baz/perl5/perlbrew/bin/perlbrew'
         )
       }
       it { should_not contain_file('/dne_perlbrew_bashrc') }
@@ -53,7 +53,7 @@ describe 'perlbrew', :type => :define do
       it { should contain_exec('/dne_install_perlbrew').with(
           :cwd   => '/dne',
           :user  => 'baz',
-          :group => nil,
+          :group => nil
         )
       }
       it { should_not contain_file('/dne_perlbrew_bashrc') }
@@ -75,7 +75,7 @@ describe 'perlbrew', :type => :define do
       it { should contain_exec('/dne_install_perlbrew').with(
           :cwd   => '/dne',
           :user  => nil,
-          :group => 'baz',
+          :group => 'baz'
         )
       }
       it { should_not contain_file('/dne_perlbrew_bashrc') }
@@ -97,7 +97,7 @@ describe 'perlbrew', :type => :define do
       it { should contain_exec('/dne_install_perlbrew').with(
           :cwd   => '/dne',
           :user  => nil,
-          :group => nil,
+          :group => nil
         )
       }
       it { should contain_file('/dne_perlbrew_bashrc').with(
@@ -109,7 +109,7 @@ describe 'perlbrew', :type => :define do
         )
       }
       it { should contain_file_line('/dne_perlbrew_bashrc').with(
-          :path => '/dne/.bashrc',
+          :path => '/dne/.bashrc'
         )
       }
     end
@@ -119,7 +119,7 @@ describe 'perlbrew', :type => :define do
       it { should contain_exec('/dne_install_perlbrew').with(
           :cwd   => '/dne',
           :user  => nil,
-          :group => nil,
+          :group => nil
         )
       }
       it { should_not contain_file('/dne_perlbrew_bashrc') }

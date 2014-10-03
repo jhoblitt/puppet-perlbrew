@@ -17,7 +17,7 @@ describe 'perlbrew::cpanm', :type => :define do
         :user      => nil,
         :group     => nil,
         :logoutput => true,
-        :unless    => 'perl -MModule::Build -e \'1\'',
+        :unless    => 'perl -MModule::Build -e \'1\''
       )
     }
   end
