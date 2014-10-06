@@ -13,6 +13,8 @@ define perlbrew::perl (
   $owner        = getparam(Perlbrew[$target], 'owner')
   $group        = getparam(Perlbrew[$target], 'group')
 
+  # this is duplicative of the environment setup done in perlbrew::exec but
+  # this can't be avoided due to puppet 3.x's inaccessible defined type scopes
   $perlbrew_env = [
     "HOME=${install_root}",
     'PERLBREW_VERSION=0.71',

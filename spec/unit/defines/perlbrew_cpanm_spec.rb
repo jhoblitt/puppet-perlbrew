@@ -5,19 +5,17 @@ describe 'perlbrew::cpanm', :type => :define do
   let(:params) {{ :target => '5.18.2' }}
   let(:pre_condition) do
     <<-eos
-      perlbrew { 'foo': install_root => '/dne' }
-      perlbrew::perl { '5.18.2': target => 'foo' }
+      perlbrew { '/dne': }
+      perlbrew::perl { '5.18.2': target => '/dne' }
     eos
   end
 
   context 'default params' do
-    it { should contain_exec('5.18.2_cpanm-Module::Build').with(
+    it { should contain_perlbrew__exec('cpanm Module::Build').with(
         :command   => 'cpanm Module::Build',
-        :cwd       => '/dne',
-        :user      => nil,
-        :group     => nil,
         :logoutput => true,
-        :unless    => 'perl -MModule::Build -e \'1\''
+        :unless    => 'perl -MModule::Build -e \'1\'',
+        :timeout   => 900,
       )
     }
   end
