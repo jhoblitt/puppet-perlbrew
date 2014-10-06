@@ -36,7 +36,7 @@ This is a puppet module for basic management of
 [`perlbrew`](http://perlbrew.pl/) based Perl5 installations.  It has the
 ability to manage multiple parallel installations on the same host.
 
-** Several of the types in this module have parse order dependent behavior.
+**Several of the types in this module have parse order dependent behavior.
 Please observe any warning(s) listed in a type's description below**
 
 
@@ -149,7 +149,7 @@ the `.bashrc` file located under the `install` root.  Eg.
 
 #### `perlbrew::perl`
 
-** Warning**: This defined type has parse order dependent behavior.  The
+**Warning**: This defined type has parse order dependent behavior.  The
 `Perlbrew[$target]` resource must be *parsed* before this type's declaration.
 
 ```puppet
@@ -186,7 +186,7 @@ The version string of perl 5 release to be installed. Eg.
 
 #### `perlbrew::cpanm`
 
-** Warning**: This defined type has parse order dependent behavior.  The
+**Warning**: This defined type has parse order dependent behavior.  The
 `Perlbrew::Perl[$target]` resource must be *parsed* before this type's
 declaration.
 
@@ -228,7 +228,7 @@ perlbrew::cpanm { 'https://github.com/Perl-Toolchain-Gang/Module-Build':
 
 #### `perlbrew::exec`
 
-** Warning**: This defined type has parse order dependent behavior.  The
+**Warning**: This defined type has parse order dependent behavior.  The
 `Perlbrew::Perl[$target]` resource must be *parsed* before this type's
 declaration.
 
