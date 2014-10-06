@@ -36,17 +36,17 @@ define perlbrew::exec (
   $perlbrew_env = [
     "HOME=${install_root}",
     'PERLBREW_VERSION=0.71',
-    "PERLBREW_PERL=perl-${version}",
+    "PERLBREW_PERL=${version}",
     'PERLBREW_BASHRC_VERSION=0.71',
     "PERLBREW_ROOT=${install_root}/perl5/perlbrew",
     "PERLBREW_HOME=${install_root}/.perlbrew",
-    "PERLBREW_MANPATH=${install_root}/perl5/perlbrew/perls/perl-${version}/man",
-    "PERLBREW_PATH=${install_root}/perl5/perlbrew/bin:${install_root}/perl5/perlbrew/perls/perl-${version}/bin",
+    "PERLBREW_MANPATH=${install_root}/perl5/perlbrew/perls/${version}/man",
+    "PERLBREW_PATH=${install_root}/perl5/perlbrew/bin:${install_root}/perl5/perlbrew/perls/${version}/bin",
   ]
 
   $perlbrew_path = [
     "${install_root}/perl5/perlbrew/bin",
-    "${install_root}/perl5/perlbrew/perls/perl-${version}/bin",
+    "${install_root}/perl5/perlbrew/perls/${version}/bin",
   ]
 
   $merged_environment = $environment ? {

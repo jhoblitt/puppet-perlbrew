@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'perlbrew::perl', :type => :define do
-  let(:title) { '5.18.2' }
+  let(:title) { 'perl-5.18.2' }
   let(:params) {{ :target => 'foo' }}
   let(:pre_condition) { "perlbrew { 'foo': install_root => '/dne' }" }
 

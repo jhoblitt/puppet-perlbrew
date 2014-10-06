@@ -18,30 +18,30 @@ define perlbrew::perl (
   $perlbrew_env = [
     "HOME=${install_root}",
     'PERLBREW_VERSION=0.71',
-    "PERLBREW_PERL=perl-${version}",
+    "PERLBREW_PERL=${version}",
     'PERLBREW_BASHRC_VERSION=0.71',
     "PERLBREW_ROOT=${install_root}/perl5/perlbrew",
     "PERLBREW_HOME=${install_root}/.perlbrew",
-    "PERLBREW_MANPATH=${install_root}/perl5/perlbrew/perls/perl-${version}/man",
-    "PERLBREW_PATH=${install_root}/perl5/perlbrew/bin:${install_root}/perl5/perlbrew/perls/perl-${version}/bin",
+    "PERLBREW_MANPATH=${install_root}/perl5/perlbrew/perls/${version}/man",
+    "PERLBREW_PATH=${install_root}/perl5/perlbrew/bin:${install_root}/perl5/perlbrew/perls/${version}/bin",
   ]
 
   $perlbrew_path = [
     "${install_root}/perl5/perlbrew/bin",
-    "${install_root}/perl5/perlbrew/perls/perl-${version}/bin",
+    "${install_root}/perl5/perlbrew/perls/${version}/bin",
     '/bin',
     '/usr/bin',
   ]
 
-  exec { "${target}_install_perl-${version}":
-    command     => "perlbrew install perl-${version}",
+  exec { "${target}_install_${version}":
+    command     => "perlbrew install ${version}",
     path        => $perlbrew_path,
     environment => $perlbrew_env,
     cwd         => $install_root,
     user        => $owner,
     group       => $group,
     logoutput   => true,
-    creates     => "${install_root}/perl5/perlbrew/perls/perl-${version}",
+    creates     => "${install_root}/perl5/perlbrew/perls/${version}",
     timeout     => 3600,
   } ->
   exec { "${target}_install-cpanm-${version}":
@@ -54,14 +54,14 @@ define perlbrew::perl (
     logoutput   => true,
     unless      => 'which cpanm',
   } ->
-  exec { "${target}_switch_perl-${version}":
-    command     => "perlbrew switch perl-${version}",
+  exec { "${target}_switch_${version}":
+    command     => "perlbrew switch ${version}",
     path        => $perlbrew_path,
     environment => $perlbrew_env,
     cwd         => $install_root,
     user        => $owner,
     group       => $group,
     logoutput   => true,
-    unless      => "grep PERLBREW_PERL=\\\"perl-${version}\\\" ${install_root}/.perlbrew/init",
+    unless      => "grep PERLBREW_PERL=\\\"${version}\\\" ${install_root}/.perlbrew/init",
   }
 }
