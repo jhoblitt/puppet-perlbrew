@@ -58,25 +58,51 @@ define perlbrew::exec (
     undef   => $perlbrew_path,
     default => concat($perlbrew_path, $path),
   }
+  if versioncmp($::puppetversion, '3.0.0') >= 0 {
+    exec { "${target}_${command}":
+      command     => $command,
+      creates     => $creates,
+      cwd         => $cwd,
+      environment => $merged_environment,
+      group       => $group,
+      logoutput   => $logoutput,
+      onlyif      => $onlyif,
+      path        => $merged_path,
+      provider    => $provider,
+      refresh     => $refresh,
+      refreshonly => $refreshonly,
+      returns     => $returns,
+      timeout     => $timeout,
+      tries       => $tries,
+      try_sleep   => $try_sleep,
+      umask       => $umask,
+      unless      => $unless,
+      user        => $owner,
+    }
+  } else {
+    # puppet < 3 exec type does not support umask
+    if $umask {
+      warning("puppet ${::puppetversion}'s exec type does not support the umask parameter")
+    }
 
-  exec { "${target}_${command}":
-    command     => $command,
-    creates     => $creates,
-    cwd         => $cwd,
-    environment => $merged_environment,
-    group       => $group,
-    logoutput   => $logoutput,
-    onlyif      => $onlyif,
-    path        => $merged_path,
-    provider    => $provider,
-    refresh     => $refresh,
-    refreshonly => $refreshonly,
-    returns     => $returns,
-    timeout     => $timeout,
-    tries       => $tries,
-    try_sleep   => $try_sleep,
-    umask       => $umask,
-    unless      => $unless,
-    user        => $owner,
+    exec { "${target}_${command}":
+      command     => $command,
+      creates     => $creates,
+      cwd         => $cwd,
+      environment => $merged_environment,
+      group       => $group,
+      logoutput   => $logoutput,
+      onlyif      => $onlyif,
+      path        => $merged_path,
+      provider    => $provider,
+      refresh     => $refresh,
+      refreshonly => $refreshonly,
+      returns     => $returns,
+      timeout     => $timeout,
+      tries       => $tries,
+      try_sleep   => $try_sleep,
+      unless      => $unless,
+      user        => $owner,
+    }
   }
 }
