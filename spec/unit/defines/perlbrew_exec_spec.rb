@@ -33,7 +33,6 @@ describe 'perlbrew::exec', :type => :define do
 
     it { should contain_exec('5.18.2_perl Build.PL').with(
         :command     => 'perl Build.PL',
-        :cwd         => '/dne',
         :environment => perlbrew_env,
         :path        => perlbrew_path
       )

@@ -4,6 +4,7 @@ define perlbrew::exec (
   $target,
   $command     = $name,
   $creates     = undef,
+  $cwd         = undef,
   $environment = undef,
   $logoutput   = undef,
   $onlyif      = undef,
@@ -61,7 +62,7 @@ define perlbrew::exec (
   exec { "${target}_${command}":
     command     => $command,
     creates     => $creates,
-    cwd         => $install_root,
+    cwd         => $cwd,
     environment => $merged_environment,
     group       => $group,
     logoutput   => $logoutput,
