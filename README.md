@@ -61,7 +61,7 @@ $lockfile = '/home/moe/myproject/puppet.lock'
 perlbrew::exec { 'perl Build.PL':
   target  => 'perl-5.18.2',
   cwd     => '/home/moe/myproject/',
-  creates => $lockfilee,
+  creates => $lockfile,
 } ->
 file { $lockfile:
   ensure => 'file',
