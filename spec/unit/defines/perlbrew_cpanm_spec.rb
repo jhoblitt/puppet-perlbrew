@@ -15,7 +15,7 @@ describe 'perlbrew::cpanm', :type => :define do
         :command   => 'cpanm Module::Build',
         :logoutput => true,
         :unless    => 'perl -MModule::Build -e \'1\'',
-        :timeout   => 900,
+        :timeout   => 900
       )
     }
   end

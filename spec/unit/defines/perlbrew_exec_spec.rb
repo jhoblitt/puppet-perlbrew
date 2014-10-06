@@ -35,7 +35,7 @@ describe 'perlbrew::exec', :type => :define do
         :command     => 'perl Build.PL',
         :cwd         => '/dne',
         :environment => perlbrew_env,
-        :path        => perlbrew_path,
+        :path        => perlbrew_path
       )
     }
   end
