@@ -1,6 +1,6 @@
 {
   "name": "jhoblitt-perlbrew",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Joshua Hoblitt <jhoblitt@cpan.org>",
   "summary": "Manages perlbrew based Perl5 installations",
   "license": "Apache-2.0",

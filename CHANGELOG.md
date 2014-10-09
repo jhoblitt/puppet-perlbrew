@@ -1,0 +1,40 @@
+
+#### [Current]
+ * [0d62542](../../commit/0d62542) - __(Joshua Hoblitt)__ remove debugging comments from perlbrew::exec
+
+Never should have been committed...
+
+ * [2a5b511](../../commit/2a5b511) - __(Joshua Hoblitt)__ set a default cwd for perlbrew::exec
+
+This is to [hopefully] prevent the exec from having a cwd that the
+user/group perms it's running with doesn't have access to.
+
+#### v0.1.0
+ * [3571557](../../commit/3571557) - __(Joshua Hoblitt)__ humans should never have to hand edit json...
+ * [796dd2b](../../commit/796dd2b) - __(Joshua Hoblitt)__ add metadata.json for initial forge release
+ * [ccf48cb](../../commit/ccf48cb) - __(Joshua Hoblitt)__ fix README example typo
+ * [dc52547](../../commit/dc52547) - __(Joshua Hoblitt)__ minor README markup fixes
+ * [66b32d4](../../commit/66b32d4) - __(Joshua Hoblitt)__ puppet < 3's exec type does not support the umask parameter
+ * [c9e5b7b](../../commit/c9e5b7b) - __(Joshua Hoblitt)__ do not prefix perlbrew perl version string with perl-
+
+Require the full perlbrew version string
+
+ * [c4d392d](../../commit/c4d392d) - __(Joshua Hoblitt)__ fill out basic README structure
+ * [c8e630b](../../commit/c8e630b) - __(Joshua Hoblitt)__ perlbrew::exec should not be forced to Perlbrew[$target]'s cwd
+ * [6fe4729](../../commit/6fe4729) - __(Joshua Hoblitt)__ make rspec tests compatible with ruby 1.8.7 (again...)
+ * [a837813](../../commit/a837813) - __(Joshua Hoblitt)__ add perlbrew::exec define
+
+- refactor perlbrew::cpanm to use new define
+- needs additional tests
+
+ * [64e61e3](../../commit/64e61e3) - __(Joshua Hoblitt)__ make rspec tests compatible with ruby 1.8.7
+
+Remove trailing commas from the last hash key...
+
+ * [b28b77d](../../commit/b28b77d) - __(Joshua Hoblitt)__ change perlbrew install param to default to name/title
+ * [2f46366](../../commit/2f46366) - __(Joshua Hoblitt)__ add perlbrew::cpanm define
+ * [d1bcc7f](../../commit/d1bcc7f) - __(Joshua Hoblitt)__ pedantically replicate perlbrew env vars for perlbrew::perl
+ * [1b59b58](../../commit/1b59b58) - __(Joshua Hoblitt)__ add perlbrew::perl define
+ * [bd2db22](../../commit/bd2db22) - __(Joshua Hoblitt)__ set shell env HOME var when installing perlbrew
+ * [6353948](../../commit/6353948) - __(Joshua Hoblitt)__ first working version
+ * [ac2c584](../../commit/ac2c584) - __(Joshua Hoblitt)__ first commit
