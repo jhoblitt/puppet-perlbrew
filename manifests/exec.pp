@@ -54,16 +54,25 @@ define perlbrew::exec (
     default => concat($perlbrew_env, $environment),
   }
 
-  $merged_path = $path? {
+  $merged_path = $path ? {
     undef   => $perlbrew_path,
     default => concat($perlbrew_path, $path),
   }
+
+  # the default cwd may be in a path inaccessible to the user/group perms the
+  # exec is running with
+  $safe_cwd = $cwd ? {
+    undef   => $install_root,
+    default => $cwd,
+  }
+
   if versioncmp($::puppetversion, '3.0.0') >= 0 {
     exec { "${target}_${command}":
       command     => $command,
       creates     => $creates,
-      cwd         => $cwd,
-      environment => $merged_environment,
+      cwd         => $safe_cwd,
+      #environment => $merged_environment,
+      environment => $environment,
       group       => $group,
       logoutput   => $logoutput,
       onlyif      => $onlyif,
@@ -88,8 +97,9 @@ define perlbrew::exec (
     exec { "${target}_${command}":
       command     => $command,
       creates     => $creates,
-      cwd         => $cwd,
+      cwd         => $safe_cwd,
       environment => $merged_environment,
+      #environment => $environment,
       group       => $group,
       logoutput   => $logoutput,
       onlyif      => $onlyif,
