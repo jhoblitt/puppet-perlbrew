@@ -194,7 +194,9 @@ declaration.
 perlbrew::cpanm { 'Module::Build':
   target     =>'perl-5.18.2', # required
   module     => 'Module::Build', # defaults to resource title
+  flags      => '--notest',
   check_name => undef,
+  timeout    => undef,
 }
 ```
 
@@ -209,6 +211,12 @@ The name of the `Perlbrew::Perl[...]` resource / perl installation to use.
 `String` Defaults to `$title`
 
 The module name to pass to the `cpanm` utility.
+
+##### `flags`
+
+`String` Defaults to `--notest`
+
+The set of flag(s), as a string, to pass to `cpanm`.
 
 ##### `check_name`
 
@@ -226,6 +234,13 @@ perlbrew::cpanm { 'https://github.com/Perl-Toolchain-Gang/Module-Build':
 
 ```
 
+##### `timeout`
+
+`String` Defaults to `undef`
+
+The number of seconds the operation should wait before failing due to a
+timeout.
+
 #### `perlbrew::exec`
 
 **Warning**: This defined type has parse order dependent behavior.  The
@@ -233,7 +248,7 @@ perlbrew::cpanm { 'https://github.com/Perl-Toolchain-Gang/Module-Build':
 declaration.
 
 ```puppet
-perlbrew::exec{ 'perl Build.PL':
+perlbrew::exec { 'perl Build.PL':
   target      =>'perl-5.18.2', # required
   command     => 'perl Build.PL',
   creates     => undef,
