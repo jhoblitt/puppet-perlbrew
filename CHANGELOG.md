@@ -1,5 +1,12 @@
 
 #### [Current]
+ * [c01f182](../../commit/c01f182) - __(Joshua Hoblitt)__ Merge pull request [#1](../../issues/1) from jhoblitt/feature/cpanm_params
+
+add timeout & flags params to perlbrew::cpanm
+ * [43b11f3](../../commit/43b11f3) - __(Joshua Hoblitt)__ add timeout & flags params to perlbrew::cpanm
+
+#### v0.2.0
+ * [9c740e8](../../commit/9c740e8) - __(Joshua Hoblitt)__ bump version to v0.2.0
  * [0d62542](../../commit/0d62542) - __(Joshua Hoblitt)__ remove debugging comments from perlbrew::exec
 
 Never should have been committed...
