@@ -3,9 +3,11 @@
 define perlbrew::perl (
   $target,
   $version = $name,
+  $flags   = "--notest -j ${::processorcount}",
 ) {
-  validate_string($name)
   validate_string($target)
+  validate_string($version)
+  validate_string($flags)
 
   Perlbrew[$target] -> Perlbrew::Perl[$name]
 
@@ -33,8 +35,10 @@ define perlbrew::perl (
     '/usr/bin',
   ]
 
+  $command = regsubst("perlbrew install ${flags} ${version}", '\s+', ' ', 'G')
+
   exec { "${target}_install_${version}":
-    command     => "perlbrew install ${version}",
+    command     => $command,
     path        => $perlbrew_path,
     environment => $perlbrew_env,
     cwd         => $install_root,
