@@ -156,6 +156,8 @@ the `.bashrc` file located under the `install` root.  Eg.
 perlbrew::perl { 'perl-5.18.2':
   target  => '/home/moe', # required
   version => 'perl-5.18.2',
+  flags   => "--notest -j ${::processorcount}",
+  timeout => 900,
 }
 ```
 
@@ -183,6 +185,22 @@ The version string of perl 5 release to be installed. Eg.
       perl5.005_04
       perl5.004_05
       perl5.003_07
+
+##### `flags`
+
+`String` Defaults to `--notest -j ${::processorcount}`
+
+The option flag(s) passed to `perlbrew install` command. Note that the
+`--notest` flag dramatically speeds up the ammount of time require to install a
+perl version.
+
+##### `timeout`
+
+`String` Defaults to `900`
+
+This sets the timeout on the `perlbrew install` command.  It may be nessicary
+to increase this value on a slow host or if the `--notest` flag is not being
+passed.
 
 #### `perlbrew::cpanm`
 

@@ -3,9 +3,13 @@
 define perlbrew::perl (
   $target,
   $version = $name,
+  $flags   = "--notest -j ${::processorcount}",
+  $timeout = 900,
 ) {
-  validate_string($name)
   validate_string($target)
+  validate_string($version)
+  validate_string($flags)
+  validate_string($timeout)
 
   Perlbrew[$target] -> Perlbrew::Perl[$name]
 
@@ -33,8 +37,10 @@ define perlbrew::perl (
     '/usr/bin',
   ]
 
+  $command = regsubst("perlbrew install ${flags} ${version}", '\s+', ' ', 'G')
+
   exec { "${target}_install_${version}":
-    command     => "perlbrew install ${version}",
+    command     => $command,
     path        => $perlbrew_path,
     environment => $perlbrew_env,
     cwd         => $install_root,
@@ -42,7 +48,7 @@ define perlbrew::perl (
     group       => $group,
     logoutput   => true,
     creates     => "${install_root}/perl5/perlbrew/perls/${version}",
-    timeout     => 3600,
+    timeout     => $timeout,
   } ->
   exec { "${target}_install-cpanm-${version}":
     command     => 'perlbrew install-cpanm',
