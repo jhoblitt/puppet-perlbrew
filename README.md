@@ -11,6 +11,8 @@ Puppet perlbrew Module
     * [Examples](#examples)
         * [Single Perl Environment](#single-perl-environment)
         * [Multiple Perl Environments](#multiple-perl-environments)
+        * [Install Module from Git](#install-module-from-git)
+        * [Building an Application](#building-an-application)
     * [Defines](#defines)
         * [`perlbrew`](#perlbrew)
         * [`perlbrew::perl`](#perlbrewperl)
@@ -48,59 +50,108 @@ Usage
 #### Single Perl Environment
 
 ```puppet
-perlbrew { '/home/moe': }
-perlbrew::perl { 'perl-5.18.2':
+perlbrew { '/home/moe':
+  owner  => 'moe',
+  group  => 'stoges',
+  bashrc => true,
+}
+
+perlbrew::perl { 'perl-5.20.1':
   target => '/home/moe',
 }
+
 perlbrew::cpanm { 'Module::Build':
-  target => 'perl-5.18.2',
-}
-
-$lockfile = '/home/moe/myproject/puppet.lock'
-
-perlbrew::exec { 'perl Build.PL':
-  target  => 'perl-5.18.2',
-  cwd     => '/home/moe/myproject/',
-  creates => $lockfile,
-} ->
-file { $lockfile:
-  ensure => 'file',
-  owner  => $role_user,
-  group  => $role_group,
+  target => 'perl-5.20.1',
 }
 ```
 
 #### Multiple Perl Environments
 
 ```puppet
-perlbrew { '/home/moe': }
-perlbrew { '/home/larry': }
-perlbrew { '/home/curly': }
+perlbrew { '/home/moe':
+  owner => 'moe',
+}
+perlbrew { '/home/larry':
+  owner => 'larry',
+}
+perlbrew { '/home/curly':
+  owner => 'curly',
+}
 
-perlbrew::perl { 'moe-5.18.2':
+perlbrew::perl { 'moe-5.20.1':
   target  => '/home/moe',
-  version => 'perl-5.18.2',
+  version => 'perl-5.20.1',
 }
-perlbrew::perl { 'larry-5.18.2':
+perlbrew::perl { 'larry-5.20.1':
   target  => '/home/larry',
-  version => 'perl-5.18.2',
+  version => 'perl-5.20.1',
 }
-perlbrew::perl { 'curly-5.18.2':
+perlbrew::perl { 'curly-5.20.1':
   target  => '/home/curly',
-  version => 'perl-5.18.2',
+  version => 'perl-5.20.1',
 }
 
 perlbrew::cpanm { 'moe-Module::Build':
-  target => 'moe-5.18.2',
+  target => 'moe-5.20.1',
   module => 'Module::Build',
 }
 perlbrew::cpanm { 'larry-Module::Build':
-  target => 'larry-5.18.2',
+  target => 'larry-5.20.1',
   module => 'Module::Build',
 }
 perlbrew::cpanm { 'curly-Module::Build':
-  target => 'curly-5.18.2',
+  target => 'curly-5.20.1',
   module => 'Module::Build',
+}
+```
+
+#### Install Module from Git
+
+```puppet
+perlbrew::cpanm { 'git@github.com:jhoblitt/DateTime-Format-ISO8601.git':
+  target => '5.20.1',
+  module => 'DateTime::Format::ISO8601',
+}
+```
+
+#### Building an Application
+
+Example of building a perl application in place.
+
+```puppet
+$lockfile = "${app_root}/lock"
+
+vcsrepo { $app_root:
+  ensure   => present,
+  provider => 'git',
+  source   => '',
+  user     => $app_user,
+  owner    => $app_user,
+  group    => $app_group,
+} ->
+perlbrew::exec { 'perl Build.PL':
+  target  => 'perl-5.20.1',
+  cwd     => $app_root
+  creates => $lockfile,
+  require => Perlbrew::Cpanm['Module::Build'],
+} ->
+perlbrew::exec { 'Build':
+  target  => 'perl-5.20.1',
+  cwd     => $app_root,
+  path    => $app_root,
+  creates => $lockfile,
+} ->
+perlbrew::exec { 'cpanm --installdeps --notest .':
+  target  => 'perl-5.20.1',
+  path    => ['/bin', '/usr/bin'],
+  cwd     => $app_root,
+  creates => $lockfile,
+  timeout => 900,
+} ->
+file { $lockfile:
+  ensure => 'file',
+  owner  => $app_user,
+  group  => $app_group,
 }
 ```
 
@@ -153,9 +204,9 @@ the `.bashrc` file located under the `install` root.  Eg.
 `Perlbrew[$target]` resource must be *parsed* before this type's declaration.
 
 ```puppet
-perlbrew::perl { 'perl-5.18.2':
+perlbrew::perl { 'perl-5.20.1':
   target  => '/home/moe', # required
-  version => 'perl-5.18.2',
+  version => 'perl-5.20.1',
   flags   => "--notest -j ${::processorcount}",
   timeout => 900,
 }
@@ -210,7 +261,7 @@ declaration.
 
 ```puppet
 perlbrew::cpanm { 'Module::Build':
-  target     =>'perl-5.18.2', # required
+  target     =>'perl-5.20.1', # required
   module     => 'Module::Build', # defaults to resource title
   flags      => '--notest',
   check_name => undef,
@@ -246,7 +297,7 @@ match the git url / cpan tarball name. Eg.
 
 ```puppet
 perlbrew::cpanm { 'https://github.com/Perl-Toolchain-Gang/Module-Build':
-  target     =>'perl-5.18.2',
+  target     =>'perl-5.20.1',
   check_name => 'Module::Build',
 }
 
@@ -267,7 +318,7 @@ declaration.
 
 ```puppet
 perlbrew::exec { 'perl Build.PL':
-  target      =>'perl-5.18.2', # required
+  target      => 'perl-5.20.1', # required
   command     => 'perl Build.PL',
   creates     => undef,
   cwd         => undef,
