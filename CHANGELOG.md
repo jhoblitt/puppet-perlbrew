@@ -1,5 +1,25 @@
 
 #### [Current]
+ * [768e006](../../commit/768e006) - __(Joshua Hoblitt)__ add sles/debian linux to operatingsystem_support metadata
+ * [e055934](../../commit/e055934) - __(Joshua Hoblitt)__ update+add README examples
+ * [b6ee28c](../../commit/b6ee28c) - __(Joshua Hoblitt)__ remove puppet 2.7.14 from travis matrix
+ * [96774ab](../../commit/96774ab) - __(Joshua Hoblitt)__ Merge pull request [#2](../../issues/2) from jhoblitt/feature/perlbrew_perl_params
+
+Feature/perlbrew perl params
+ * [7b72c18](../../commit/7b72c18) - __(Joshua Hoblitt)__ add timeout param to perlbrew::perl
+
+This change also shortens the default timeout on a perl install from
+3600s -> 900s.
+
+ * [de60e1f](../../commit/de60e1f) - __(Joshua Hoblitt)__ add flags param to perlbrew::perl
+
+The flags param defaults to including the `--notest` flag which should
+dramatically shorten the time required to install a new perl version.
+
++ greatly improved test coverage of perlbrew::perl
+
+#### v0.3.0
+ * [c20ffd3](../../commit/c20ffd3) - __(Joshua Hoblitt)__ bump version to v0.3.0
  * [c01f182](../../commit/c01f182) - __(Joshua Hoblitt)__ Merge pull request [#1](../../issues/1) from jhoblitt/feature/cpanm_params
 
 add timeout & flags params to perlbrew::cpanm
