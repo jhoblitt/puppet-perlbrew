@@ -157,6 +157,7 @@ perlbrew::perl { 'perl-5.18.2':
   target  => '/home/moe', # required
   version => 'perl-5.18.2',
   flags   => "--notest -j ${::processorcount}",
+  timeout => 900,
 }
 ```
 
@@ -192,6 +193,14 @@ The version string of perl 5 release to be installed. Eg.
 The option flag(s) passed to `perlbrew install` command. Note that the
 `--notest` flag dramatically speeds up the ammount of time require to install a
 perl version.
+
+##### `timeout`
+
+`String` Defaults to `900`
+
+This sets the timeout on the `perlbrew install` command.  It may be nessicary
+to increase this value on a slow host or if the `--notest` flag is not being
+passed.
 
 #### `perlbrew::cpanm`
 

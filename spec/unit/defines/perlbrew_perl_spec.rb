@@ -7,6 +7,7 @@ describe 'perlbrew::perl', :type => :define do
   let(:version) { 'perl-5.18.2' }
   let(:target) { 'foo' }
   let(:flags) { "--notest -j #{facts[:processorcount]}" }
+  let(:timeout) { 900 }
 
   let(:title) { version }
   let(:params) {{ :target => target }}
@@ -41,7 +42,7 @@ describe 'perlbrew::perl', :type => :define do
         :group       => nil,
         :logoutput   => true,
         :creates     => "/dne/perl5/perlbrew/perls/#{version}",
-        :timeout     => 3600
+        :timeout     => timeout
       )
     }
 
@@ -126,4 +127,21 @@ describe 'perlbrew::perl', :type => :define do
       end
     end
   end # flags =>
+
+  context 'timeout =>' do
+    context '42' do
+      let(:timeout) { 42 }
+      before { params[:timeout] = timeout }
+
+      it_behaves_like 'guts'
+    end
+
+    context '[]' do
+      before { params[:timeout] = [] }
+
+      it 'should fail' do
+        expect { should }.to raise_error(Puppet::Error, /is not a string/)
+      end
+    end
+  end # timeout =>
 end
