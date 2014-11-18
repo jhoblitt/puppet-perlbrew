@@ -89,7 +89,7 @@ describe 'perlbrew::perl', :type => :define do
       let(:params) {{ :target => [] }}
 
       it 'should fail' do
-        expect { should }.to raise_error(Puppet::Error, /is not a string/)
+        should raise_error(Puppet::Error, /is not a string/)
       end
     end
   end # target =>
@@ -106,7 +106,7 @@ describe 'perlbrew::perl', :type => :define do
       before { params[:version] = [] }
 
       it 'should fail' do
-        expect { should }.to raise_error(Puppet::Error, /is not a string/)
+        should raise_error(Puppet::Error, /is not a string/)
       end
     end
   end # version =>
@@ -123,7 +123,7 @@ describe 'perlbrew::perl', :type => :define do
       before { params[:flags] = [] }
 
       it 'should fail' do
-        expect { should }.to raise_error(Puppet::Error, /is not a string/)
+        should raise_error(Puppet::Error, /is not a string/)
       end
     end
   end # flags =>
@@ -140,7 +140,7 @@ describe 'perlbrew::perl', :type => :define do
       before { params[:timeout] = [] }
 
       it 'should fail' do
-        expect { should }.to raise_error(Puppet::Error, /is not a string/)
+        should raise_error(Puppet::Error, /is not a string/)
       end
     end
   end # timeout =>

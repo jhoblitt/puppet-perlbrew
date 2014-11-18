@@ -51,7 +51,7 @@ describe 'perlbrew::cpanm', :type => :define do
       before { params[:module] = false }
 
       it 'should fail' do
-        expect { should }.to raise_error(Puppet::Error, /is not a string/)
+        should raise_error(Puppet::Error, /is not a string/)
       end
     end
   end # module
@@ -73,7 +73,7 @@ describe 'perlbrew::cpanm', :type => :define do
       before { params[:flags] = false }
 
       it 'should fail' do
-        expect { should }.to raise_error(Puppet::Error, /is not a string/)
+        should raise_error(Puppet::Error, /is not a string/)
       end
     end
   end # flags
@@ -95,7 +95,7 @@ describe 'perlbrew::cpanm', :type => :define do
       before { params[:check_name] = false }
 
       it 'should fail' do
-        expect { should }.to raise_error(Puppet::Error, /is not a string/)
+        should raise_error(Puppet::Error, /is not a string/)
       end
     end
   end # check_name
@@ -118,7 +118,7 @@ describe 'perlbrew::cpanm', :type => :define do
       before { params[:timeout] = false }
 
       it 'should fail' do
-        expect { should }.to raise_error(Puppet::Error, /is not a string/)
+        should raise_error(Puppet::Error, /is not a string/)
       end
     end
   end # timeout
