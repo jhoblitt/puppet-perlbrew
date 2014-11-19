@@ -41,7 +41,7 @@ describe 'perlbrew', :type => :define do
     context 'home/baz' do
       let(:params) {{ :install_root => 'home/baz' }}
       it 'should fail' do
-        expect { should }.to raise_error(Puppet::Error, /is not an absolute path/)
+        should raise_error(Puppet::Error, /is not an absolute path/)
       end
     end
   end # install_root =>
@@ -63,7 +63,7 @@ describe 'perlbrew', :type => :define do
     context '[]' do
       let(:params) {{ :owner => [] }}
       it 'should fail' do
-        expect { should }.to raise_error(Puppet::Error, /is not a string/)
+        should raise_error(Puppet::Error, /is not a string/)
       end
     end
   end # owner =>
@@ -85,7 +85,7 @@ describe 'perlbrew', :type => :define do
     context '[]' do
       let(:params) {{ :group => [] }}
       it 'should fail' do
-        expect { should }.to raise_error(Puppet::Error, /is not a string/)
+        should raise_error(Puppet::Error, /is not a string/)
       end
     end
   end # group =>
@@ -129,7 +129,7 @@ describe 'perlbrew', :type => :define do
     context '[]' do
       let(:params) {{ :bashrc => [] }}
       it 'should fail' do
-        expect { should }.to raise_error(Puppet::Error, /is not a boolean/)
+        should raise_error(Puppet::Error, /is not a boolean/)
       end
     end
   end # bashrc =>
