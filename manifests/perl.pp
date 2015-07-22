@@ -60,14 +60,7 @@ define perlbrew::perl (
     logoutput   => true,
     unless      => 'which cpanm',
   } ->
-  exec { "${target}_switch_${version}":
-    command     => "perlbrew switch ${version}",
-    path        => $perlbrew_path,
-    environment => $perlbrew_env,
-    cwd         => $install_root,
-    user        => $owner,
-    group       => $group,
-    logoutput   => true,
-    unless      => "grep PERLBREW_PERL=\\\"${version}\\\" ${install_root}/.perlbrew/init",
+  perlbrew::switch{ $target :
+   version => $version,
   }
 }

@@ -16,6 +16,7 @@ Puppet perlbrew Module
     * [Defines](#defines)
         * [`perlbrew`](#perlbrew)
         * [`perlbrew::perl`](#perlbrewperl)
+        * [`perlbrew::switch`](#perlbrewswitch)
         * [`perlbrew::cpanm`](#perlbrewcpanm)
         * [`perlbrew::exec`](#perlbrewexec)
 4. [Limitations](#limitations)
@@ -252,6 +253,30 @@ perl version.
 This sets the timeout on the `perlbrew install` command.  It may be nessicary
 to increase this value on a slow host or if the `--notest` flag is not being
 passed.
+
+#### `perlbrew::switch`
+
+**Warning**: This defined type has parse order dependent behavior.  The
+`Perlbrew[$target]` resource must be *parsed* before this type's declaration.
+
+```puppet
+perlbrew::switch { '/home/moe':
+  target  => '/home/moe',
+  version => 'perl-5.20.1', #required
+}
+```
+
+##### `target`
+
+`String` Defaults to `$title`.
+
+The name of the `Perlbrew[...]` resource / environment the switch is to be performed on.
+
+##### `version`
+
+`String` Required.
+
+The version string of perl 5 release to be switched to.
 
 #### `perlbrew::cpanm`
 
