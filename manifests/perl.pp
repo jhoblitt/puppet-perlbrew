@@ -5,11 +5,13 @@ define perlbrew::perl (
   $version = $name,
   $flags   = "--notest -j ${::processorcount}",
   $timeout = 900,
+  $switch  = true,
 ) {
   validate_string($target)
   validate_string($version)
   validate_string($flags)
   validate_string($timeout)
+  validate_bool($switch)
 
   Perlbrew[$target] -> Perlbrew::Perl[$name]
 
@@ -59,8 +61,12 @@ define perlbrew::perl (
     group       => $group,
     logoutput   => true,
     unless      => 'which cpanm',
-  } ->
-  perlbrew::switch{ $target :
-   version => $version,
+  }
+
+  if $switch {
+    perlbrew::switch{ $target :
+      version => $version,
+      require => Exec["${target}_install-cpanm-${version}"],
+    }
   }
 }

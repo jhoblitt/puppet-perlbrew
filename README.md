@@ -210,6 +210,7 @@ perlbrew::perl { 'perl-5.20.1':
   version => 'perl-5.20.1',
   flags   => "--notest -j ${::processorcount}",
   timeout => 900,
+  switch  => true,
 }
 ```
 
@@ -253,6 +254,13 @@ perl version.
 This sets the timeout on the `perlbrew install` command.  It may be nessicary
 to increase this value on a slow host or if the `--notest` flag is not being
 passed.
+
+##### `switch`
+
+`Boolean` Defaults to `true`
+
+This enables/disables automatic switching to the new perl during install.
+Set to false if you want to manage the versions in use separately.
 
 #### `perlbrew::switch`
 
