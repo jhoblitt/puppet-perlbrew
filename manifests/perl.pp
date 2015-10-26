@@ -3,13 +3,16 @@
 define perlbrew::perl (
   $target,
   $version = $name,
+  $as      = undef,
   $flags   = "--notest -j ${::processorcount}",
   $timeout = 900,
 ) {
   validate_string($target)
   validate_string($version)
+  validate_string($as)
   validate_string($flags)
   validate_string($timeout)
+
 
   Perlbrew[$target] -> Perlbrew::Perl[$name]
 
@@ -37,7 +40,14 @@ define perlbrew::perl (
     '/usr/bin',
   ]
 
-  $command = regsubst("perlbrew install ${flags} ${version}", '\s+', ' ', 'G')
+  if $as {
+    $alias = $as
+    $command = regsubst("perlbrew install --as $as ${flags} ${version}", '\s+', ' ', 'G')
+  }
+  else {
+    $command = regsubst("perlbrew install ${flags} ${version}", '\s+', ' ', 'G')
+    $alias = $version
+  }
 
   exec { "${target}_install_${version}":
     command     => $command,
@@ -60,14 +70,14 @@ define perlbrew::perl (
     logoutput   => true,
     unless      => 'which cpanm',
   } ->
-  exec { "${target}_switch_${version}":
-    command     => "perlbrew switch ${version}",
+  exec { "${target}_switch_${alias}":
+    command     => "perlbrew switch ${alias}",
     path        => $perlbrew_path,
     environment => $perlbrew_env,
     cwd         => $install_root,
     user        => $owner,
     group       => $group,
     logoutput   => true,
-    unless      => "grep PERLBREW_PERL=\\\"${version}\\\" ${install_root}/.perlbrew/init",
+    unless      => "grep PERLBREW_PERL=\\\"${alias}\\\" ${install_root}/.perlbrew/init",
   }
 }

@@ -210,6 +210,13 @@ perlbrew::perl { 'perl-5.20.1':
   flags   => "--notest -j ${::processorcount}",
   timeout => 900,
 }
+
+perlbrew::perl { 'stable':
+  target  => '/home/moe', # required
+  as      => 'latest-stable',
+  flags   => "--notest -j ${::processorcount}",
+  timeout => 900,
+}
 ```
 
 ##### `target`
@@ -237,6 +244,8 @@ The version string of perl 5 release to be installed. Eg.
       perl5.004_05
       perl5.003_07
 
+In addition the following perlbrew generic tags such as 'perl-stable' or just 'stable'
+
 ##### `flags`
 
 `String` Defaults to `--notest -j ${::processorcount}`
@@ -244,6 +253,14 @@ The version string of perl 5 release to be installed. Eg.
 The option flag(s) passed to `perlbrew install` command. Note that the
 `--notest` flag dramatically speeds up the ammount of time require to install a
 perl version.
+
+##### `as`
+
+`String` Defaults to `undef`
+
+The option as enables the use of a perlbrew alias. It is required if the perl
+version is set to 'perl-stable' or 'stable'. 
+The option as passed to `perlbrew install` command.
 
 ##### `timeout`
 
