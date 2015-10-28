@@ -49,7 +49,7 @@ define perlbrew::perl (
     $alias = $version
   }
 
-  exec { "${target}_install_${version}":
+  exec { "${target}_install_${alias}":
     command     => $command,
     path        => $perlbrew_path,
     environment => $perlbrew_env,
@@ -57,11 +57,11 @@ define perlbrew::perl (
     user        => $owner,
     group       => $group,
     logoutput   => true,
-    creates     => "${install_root}/perl5/perlbrew/perls/${version}",
+    creates     => "${install_root}/perl5/perlbrew/perls/${alias}",
     timeout     => $timeout,
-    unless      => "test ! -d ${install_root}/perl5/perlbrew/perls/${version}",
+    unless      => "test -d ${install_root}/perl5/perlbrew/perls/${alias}",
   } ->
-  exec { "${target}_install-cpanm-${version}":
+  exec { "${target}_install-cpanm-${alias}":
     command     => 'perlbrew install-cpanm',
     path        => $perlbrew_path,
     environment => $perlbrew_env,
