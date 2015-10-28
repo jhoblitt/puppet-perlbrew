@@ -42,7 +42,7 @@ define perlbrew::perl (
 
   if $as {
     $alias = $as
-    $command = regsubst("perlbrew install --as $as ${flags} ${version}", '\s+', ' ', 'G')
+    $command = regsubst("perlbrew install --as ${as} ${flags} ${version}", '\s+', ' ', 'G')
   }
   else {
     $command = regsubst("perlbrew install ${flags} ${version}", '\s+', ' ', 'G')
