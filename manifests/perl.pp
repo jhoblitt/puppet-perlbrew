@@ -59,6 +59,7 @@ define perlbrew::perl (
     logoutput   => true,
     creates     => "${install_root}/perl5/perlbrew/perls/${version}",
     timeout     => $timeout,
+    unless      => "test ! -d ${install_root}/perl5/perlbrew/perls/${version}",
   } ->
   exec { "${target}_install-cpanm-${version}":
     command     => 'perlbrew install-cpanm',
