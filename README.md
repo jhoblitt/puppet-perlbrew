@@ -304,6 +304,12 @@ The module name to pass to the `cpanm` utility.
 
 The set of flag(s), as a string, to pass to `cpanm`.
 
+##### `path`
+
+`Array` Defaults to `[/bin', '/usr/bin']`
+
+The set of path(s), as an Array, to pass to `Perlbrew::Cpanm[...]`.
+
 ##### `check_name`
 
 `String` Defaults to `undef`
