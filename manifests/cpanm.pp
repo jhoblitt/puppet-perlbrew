@@ -4,6 +4,7 @@ define perlbrew::cpanm (
   $target,
   $module     = $name,
   $flags      = '--notest',
+  $path       = ['/bin', '/usr/bin'],
   $check_name = undef,
   $timeout    = undef,
 ) {
@@ -11,6 +12,7 @@ define perlbrew::cpanm (
   validate_string($target)
   validate_string($module)
   validate_string($flags)
+  validate_array($path)
   validate_string($check_name)
   validate_string($timeout)
 
@@ -24,7 +26,7 @@ define perlbrew::cpanm (
   perlbrew::exec { $command:
     target    => $target,
     # needs path to git, chmod, make, etc.
-    path      => ['/bin', '/usr/bin'],
+    path      => $path,
     logoutput => true,
     timeout   => $timeout,
     unless    => "perl -M${testfor} -e '1'",
