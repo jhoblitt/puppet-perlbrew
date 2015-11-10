@@ -66,7 +66,6 @@ define perlbrew::perl (
   if $switch {
     perlbrew::switch{ $target :
       version => $version,
-      require => Exec["${target}_install-cpanm-${version}"],
     }
   }
 }

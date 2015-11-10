@@ -1,8 +1,8 @@
 # == Define: perlbrew::switch
 #
 define perlbrew::switch(
-  $version = 'system',
   $target  = $title,
+  $version = 'system',
 ) {
 
   validate_string($target, $version)
@@ -51,6 +51,7 @@ define perlbrew::switch(
       group       => $group,
       logoutput   => true,
       unless      => "grep PERLBREW_PERL=\\\"${version}\\\" ${install_root}/.perlbrew/init",
+      require     => Exec["${target}_install-cpanm-${version}"],
     }
   }
 }
