@@ -7,7 +7,7 @@ describe 'perlbrew', :type => :define do
     it { should contain_exec('/dne_install_perlbrew').with(
         :command     => 'wget --no-check-certificate -O - http://install.perlbrew.pl | bash',
         :path        => ['/bin', '/usr/bin'],
-        :environment => ['HOME=/dne'],
+        :environment => ['HOME=/dne', 'SHELL=/bin/bash'],
         :cwd         => '/dne',
         :user        => nil,
         :group       => nil,
@@ -26,7 +26,7 @@ describe 'perlbrew', :type => :define do
       it { should contain_exec('/dne_install_perlbrew').with(
           :command     => 'wget --no-check-certificate -O - http://install.perlbrew.pl | bash',
           :path        => ['/bin', '/usr/bin'],
-          :environment => ['HOME=/home/baz'],
+          :environment => ['HOME=/home/baz', 'SHELL=/bin/bash'],
           :cwd         => '/home/baz',
           :user        => nil,
           :group       => nil,

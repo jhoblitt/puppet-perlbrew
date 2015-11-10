@@ -16,7 +16,7 @@ define perlbrew (
   exec { "${name}_install_perlbrew":
     command     => 'wget --no-check-certificate -O - http://install.perlbrew.pl | bash',
     path        => ['/bin', '/usr/bin'],
-    environment => ["HOME=${install_root}"],
+    environment => ["HOME=${install_root}", 'SHELL=/bin/bash'],
     cwd         => $install_root,
     user        => $owner,
     group       => $group,

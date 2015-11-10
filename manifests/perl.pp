@@ -5,11 +5,13 @@ define perlbrew::perl (
   $version = $name,
   $flags   = "--notest -j ${::processorcount}",
   $timeout = 900,
+  $switch  = true,
 ) {
   validate_string($target)
   validate_string($version)
   validate_string($flags)
   validate_string($timeout)
+  validate_bool($switch)
 
   Perlbrew[$target] -> Perlbrew::Perl[$name]
 
@@ -59,15 +61,11 @@ define perlbrew::perl (
     group       => $group,
     logoutput   => true,
     unless      => 'which cpanm',
-  } ->
-  exec { "${target}_switch_${version}":
-    command     => "perlbrew switch ${version}",
-    path        => $perlbrew_path,
-    environment => $perlbrew_env,
-    cwd         => $install_root,
-    user        => $owner,
-    group       => $group,
-    logoutput   => true,
-    unless      => "grep PERLBREW_PERL=\\\"${version}\\\" ${install_root}/.perlbrew/init",
+  }
+
+  if $switch {
+    perlbrew::switch{ $target :
+      version => $version,
+    }
   }
 }
