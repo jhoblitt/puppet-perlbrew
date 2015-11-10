@@ -1,8 +1,8 @@
 # == Define: perlbrew::switch
 #
 define perlbrew::switch(
-  $version,
-  $target = $title,
+  $version = 'system',
+  $target  = $title,
 ) {
 
   validate_string($target, $version)
@@ -29,7 +29,7 @@ define perlbrew::switch(
     '/usr/bin',
   ]
 
-  if $version == 'off' {
+  if $version == 'system' {
     exec { "${target}_switch_${version}":
       command     => 'perlbrew switch-off',
       path        => $perlbrew_path,
