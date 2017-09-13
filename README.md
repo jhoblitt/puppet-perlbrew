@@ -247,7 +247,7 @@ perl version.
 
 ##### `timeout`
 
-`String` Defaults to `900`
+`Integer` Defaults to `900`
 
 This sets the timeout on the `perlbrew install` command.  It may be nessicary
 to increase this value on a slow host or if the `--notest` flag is not being

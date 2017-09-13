@@ -9,7 +9,7 @@ define perlbrew::perl (
   validate_string($target)
   validate_string($version)
   validate_string($flags)
-  validate_string($timeout)
+  validate_integer($timeout)
 
   Perlbrew[$target] -> Perlbrew::Perl[$name]
 
